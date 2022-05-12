@@ -1,0 +1,33 @@
+#runtime: php74 # Remplaza con php81 si usas PHP 8.1
+#runtime: php81 # Remplaza con php81 si usas PHP 8.1
+
+runtime: php55
+api_version: 1
+
+service: miservicio
+
+handlers:
+# Imágenes estáticas
+- url: /(.+\.(gif|png|jpg))$
+  static_files: \1
+  upload: .+\.(gif|png|jpg)$
+  
+- url: /js
+  static_dir: js
+  
+- url: /css
+  static_dir: css
+
+- url: /assets
+  static_dir: assets
+
+# Serve your app through a front controller at index.php or public/index.php.
+- url: /
+  script: index.php
+  
+# Serve php scripts.
+- url: /(.+\.php)$
+  script: \1
+  
+vpc_access_connector:
+ name: projects/tipprod01/locations/us-west4/connectors/conectortip02
